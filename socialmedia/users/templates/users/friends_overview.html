@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Friends</h2>
+<style>
+    .profile img{
+        width:100%;
+    } 
+     </style>
+
+<h3>Friends</h3>
+<div class="row">
+    {% for profile in friends %}
+    <div class="col-md-3">
+        <div class="profile">
+            {% if profile.picture %}
+            <img src="{{ profile.picture.url }}">
+            {% endif %}
+            <p>{{profile.user.username}}</p>
+
+            <a href="{% url 'add_friend' profile_id=profile.id %}">Remove</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}

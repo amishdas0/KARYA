@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Friends</h2>
+<style>
+ .profile img{
+     width:100%;
+ } 
+</style>
+<form action="{% url 'friends' %}" method="post">
+    {% csrf_token %}
+    <input name="q" type="text" placeholder="Search...">
+
+    <button type="submit">Search</button>
+</form>
+
+<h3>Results</h3>
+<div class="row">
+    {% for profile in profiles %}
+    <div class="col-md-3">
+        <div  class="profile">
+            {% if profile.picture %}
+            <img src="{{ profile.picture.url }}">
+            {% endif %}
+            <p>{{profile.user.username}}</p>
+
+            <a href="{% url 'add_friend' profile_id=profile.id %}">Add</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock %}
